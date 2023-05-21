@@ -3,6 +3,8 @@ import CardList from "../component/CardList";
 import SearchBox from "../component/SearchBox";
 import Scroll from "../component/Scroll";
 import ErrorBoundary from "../component/ErrorBoundary";
+import './SEGA.woff';
+import './App.css'
 
 class App extends Component {
     constructor() {

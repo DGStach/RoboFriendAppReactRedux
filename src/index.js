@@ -5,11 +5,12 @@ import App from '../src/containers/App'
 import reportWebVitals from './reportWebVitals';
 import 'tachyons';
 import {Provider} from "react-redux";
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import {searchRobots} from "./Reducers";
+import {createLogger} from "redux-logger/src";
 
-
-const store = createStore(searchRobots)
+const logger = createLogger()
+const store = createStore(searchRobots, applyMiddleware (logger))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

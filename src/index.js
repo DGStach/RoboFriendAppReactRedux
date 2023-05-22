@@ -7,7 +7,7 @@ import 'tachyons';
 import {Provider} from "react-redux";
 import {connect} from "react-redux";
 import {createStore} from "redux";
-import {searchRobots} from "./containers/Reducers";
+import {searchRobots} from "./Reducers";
 
 
 const store = createStore(searchRobots)

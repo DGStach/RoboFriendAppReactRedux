@@ -6,6 +6,8 @@ import ErrorBoundary from "../component/ErrorBoundary";
 import './SEGA.woff';
 import './App.css'
 
+
+
 class App extends Component {
     constructor() {
         super()

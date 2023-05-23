@@ -5,47 +5,43 @@ import Scroll from "../component/Scroll";
 import ErrorBoundary from "../component/ErrorBoundary";
 import './SEGA.woff';
 import './App.css'
-import {setSearchField} from "../Action";
+import {setSearchField, requestRobots} from "../Action";
 import {connect} from "react-redux";
 
 const mapStateToProps = state => {
     return {
-        searchField: state.searchField
+        searchField: state.searchRobots.searchField,
+        robots: state.requestRobots.robots,
+        isPending: state.requestRobots.isPending,
+        error: state.requestRobots.error
     }
 }
 
 const mapDispatchToProps =  (dispatch) => {
     return {
-        onSearchChange: (event) => dispatch (setSearchField(event.target.value))
+        onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+        requestRobots: () => dispatch(requestRobots())
     }
 }
 
 class App extends Component {
-    constructor() {
-        super()
-        this.state = {
-            robots: []
-        }
-    }
+
 
     onSearchChange = (event) => {
         this.setState({searchfield: event.target.value})
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(users => this.setState({robots: users}))
+     this.props.requestRobots();
     };
 
     render() {
-        const {robots} = this.state
-        const {searchField, onSearchChange} = this.props
+        const {searchField, onSearchChange, isPending, robots} = this.props
         const filteredRobots = robots.filter(robot => {
             return robot.name.toLowerCase().includes(searchField.toLowerCase())
         });
 
-        return !robots.length ?
+        return isPending?
             <div className='tc'><h1>Loading....</h1></div> :
             (
                 <div className='tc'>
@@ -61,4 +57,4 @@ class App extends Component {
     }
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
